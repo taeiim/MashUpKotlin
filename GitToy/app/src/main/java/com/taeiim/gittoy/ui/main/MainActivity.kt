@@ -7,6 +7,7 @@ import com.taeiim.gittoy.BR
 import com.taeiim.gittoy.R
 import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.base.BaseActivity
+import com.taeiim.gittoy.common.EventObserver
 import com.taeiim.gittoy.databinding.ActivityMainBinding
 import com.taeiim.gittoy.databinding.ItemRepoBinding
 import com.taeiim.gittoy.ext.start
@@ -33,7 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun MainViewModel.setObserves() {
         repoHistoryList.observe(this@MainActivity, Observer { updateItems(it) })
-        startSearchActivityEvent.observe(this@MainActivity, Observer { goSearchActivity() })
+        startSearchActivityEvent.observe(this@MainActivity, EventObserver { goSearchActivity() })
         errorQueryBlank.observe(this@MainActivity, Observer { blankSearchQuery() })
     }
 
