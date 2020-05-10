@@ -14,27 +14,20 @@ class GithubRepositoryImpl(
         query: String,
         success: (results: RepoSearchResponse) -> Unit,
         fail: (t: Throwable) -> Unit
-    ) {
-        githubRemoteDataSource.searchRepository(query, success, fail)
-    }
+    ) = githubRemoteDataSource.searchRepository(query, success, fail)
 
     override fun getRepoInfo(
         userName: String,
         repoName: String,
         success: (repo: GithubRepo) -> Unit,
         fail: (t: Throwable) -> Unit
-    ) {
-        githubRemoteDataSource.getRepoInfo(userName, repoName, success, fail)
-    }
+    ) = githubRemoteDataSource.getRepoInfo(userName, repoName, success, fail)
 
     override fun getUserInfo(
         userName: String,
         success: (user: GithubUser) -> Unit,
         fail: (t: Throwable) -> Unit
-    ) {
-        githubRemoteDataSource.getUserInfo(userName, success, fail)
-    }
-
+    ) = githubRemoteDataSource.getUserInfo(userName, success, fail)
 
     override fun getRepoHistoryList(): List<GithubRepo> {
         Thread(Runnable { githubLocalDataSource.getRepoHistoryList() }).start()
