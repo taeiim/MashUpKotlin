@@ -6,9 +6,7 @@ import androidx.room.TypeConverters
 import com.taeiim.gittoy.data.source.local.model.RepoStringConverter
 import com.taeiim.gittoy.data.source.local.model.SearchRepoHistory
 
-@Database(
-    entities = [SearchRepoHistory::class], version = 1, exportSchema = false
-)
+@Database(entities = [SearchRepoHistory::class], version = 1, exportSchema = false)
 
 @TypeConverters(RepoStringConverter::class)
 abstract class SearchRepoHistoryDatabase : RoomDatabase() {

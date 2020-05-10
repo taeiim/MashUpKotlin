@@ -15,8 +15,7 @@ class RepoStringConverter {
 
     @TypeConverter
     fun listToString(repo: GithubRepo): String {
-        val gson = Gson()
-        return gson.toJson(repo)
+        return Gson().toJson(repo)
     }
 
 }
