@@ -11,6 +11,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private val vm: DetailViewModel by viewModel()
 
+    private val userName by lazy { intent?.getStringExtra("userName") ?: "" }
+    private val repoName by lazy { intent?.getStringExtra("repoName") ?: "" }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUp()
@@ -31,8 +34,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     private fun getDetailData() {
-        val userName = intent.getStringExtra("userName")
-        val repoName = intent.getStringExtra("repoName")
         vm.getRepoData(userName, repoName)
         vm.getUserData(userName)
     }

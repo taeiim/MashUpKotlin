@@ -17,6 +17,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     private val vm: SearchViewModel by viewModel()
     private lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
 
+    private val searchWord by lazy { intent?.getStringExtra("searchWord") ?: "" }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUp()
@@ -36,7 +38,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     }
 
     private fun searchRepository() {
-        vm.searchRepo(intent.getStringExtra("searchWord"))
+        vm.searchRepo(searchWord)
     }
 
     private fun updateItems(resultList: List<GithubRepo>) {
