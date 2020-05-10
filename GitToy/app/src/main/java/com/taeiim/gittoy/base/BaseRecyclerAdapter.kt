@@ -40,9 +40,8 @@ open class BaseRecyclerAdapter<ITEM, B : ViewDataBinding>(
     }
 
     fun clearItems() {
-        val size = items.size
         this.items.clear()
-        notifyItemRangeRemoved(0, size)
+        notifyDataSetChanged()
     }
 
 }
