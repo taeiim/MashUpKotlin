@@ -15,11 +15,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
 
     private val vm: SearchViewModel by viewModel()
-    lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
+    private lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setUp()
+    }
 
+    private fun setUp() {
         repoAdapter = RepoRecyclerAdapter(this@SearchActivity, true, R.layout.item_repo, BR.repo)
         binding.repoRv.adapter = repoAdapter
 

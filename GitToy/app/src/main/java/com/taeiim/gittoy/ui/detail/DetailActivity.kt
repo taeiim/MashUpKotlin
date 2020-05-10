@@ -3,8 +3,6 @@ package com.taeiim.gittoy.ui.detail
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.taeiim.gittoy.R
-import com.taeiim.gittoy.api.model.GithubRepo
-import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.base.BaseActivity
 import com.taeiim.gittoy.databinding.ActivityDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,7 +13,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setUp()
+    }
 
+    private fun setUp() {
         vm.setObserves()
         getDetailData()
     }

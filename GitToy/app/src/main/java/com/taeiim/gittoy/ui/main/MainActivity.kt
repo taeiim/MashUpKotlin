@@ -18,10 +18,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val vm: MainViewModel by viewModel()
-    lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
+    private lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setUp()
+    }
+
+    private fun setUp() {
         binding.vm = vm
 
         repoAdapter = RepoRecyclerAdapter(this@MainActivity, false, R.layout.item_repo, BR.repo)
@@ -29,7 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         vm.setObserves()
         updateHistoryItems()
-
     }
 
     private fun MainViewModel.setObserves() {
