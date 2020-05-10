@@ -18,14 +18,14 @@ class DetailViewModel(private val githubRepository: GithubRepository) : BaseView
         get() = _repo
 
 
-    fun getRepoData(userName: String, repoName: String) {
+    fun loadRepoData(userName: String, repoName: String) {
         githubRepository.getRepoInfo(userName, repoName, success = {
             _repo.value = it
         }, fail = {
         })
     }
 
-    fun getUserData(userName: String) {
+    fun loadUserData(userName: String) {
         githubRepository.getUserInfo(userName, success = {
             _user.value = it
         }, fail = {

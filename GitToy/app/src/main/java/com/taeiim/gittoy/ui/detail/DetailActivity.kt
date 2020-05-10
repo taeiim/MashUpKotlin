@@ -21,7 +21,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     private fun setUp() {
         vm.setObserves()
-        getDetailData()
+        loadDetailData()
     }
 
     private fun DetailViewModel.setObserves() {
@@ -33,9 +33,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         user.observe(this@DetailActivity, Observer { binding.user = it })
     }
 
-    private fun getDetailData() {
-        vm.getRepoData(userName, repoName)
-        vm.getUserData(userName)
+    private fun loadDetailData() {
+        vm.loadRepoData(userName, repoName)
+        vm.loadUserData(userName)
     }
 
 }
