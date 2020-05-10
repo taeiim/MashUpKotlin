@@ -21,11 +21,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setUp()
+        setup()
     }
 
-    private fun setUp() {
-        repoAdapter = RepoRecyclerAdapter(this@SearchActivity, true, R.layout.item_repo, BR.repo)
+    private fun setup() {
+        repoAdapter = RepoRecyclerAdapter(this, true, R.layout.item_repo, BR.repo)
         binding.repoRv.adapter = repoAdapter
 
         vm.setObserves()

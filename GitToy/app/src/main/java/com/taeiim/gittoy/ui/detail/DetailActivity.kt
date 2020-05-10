@@ -16,10 +16,10 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setUp()
+        setup()
     }
 
-    private fun setUp() {
+    private fun setup() {
         vm.setObserves()
         loadDetailData()
     }

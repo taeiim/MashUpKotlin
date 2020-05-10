@@ -22,13 +22,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setUp()
+        setup()
     }
 
-    private fun setUp() {
+    private fun setup() {
         binding.vm = vm
 
-        repoAdapter = RepoRecyclerAdapter(this@MainActivity, false, R.layout.item_repo, BR.repo)
+        repoAdapter = RepoRecyclerAdapter(this, false, R.layout.item_repo, BR.repo)
         binding.historyRepoRv.adapter = repoAdapter
 
         vm.setObserves()
