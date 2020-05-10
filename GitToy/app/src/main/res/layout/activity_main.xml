@@ -41,7 +41,6 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:hint="Search Repository"
-                android:onTextChanged="@{vm::onTextChanged}"
                 android:text="@={vm.query}"
                 android:textSize="16sp" />
 
