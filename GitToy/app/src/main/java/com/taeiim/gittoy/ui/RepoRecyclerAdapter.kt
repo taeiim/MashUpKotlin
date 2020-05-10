@@ -21,8 +21,8 @@ class RepoRecyclerAdapter<ITEM : Any, B : ViewDataBinding>(
 
         holder.itemView.setOnClickListener {
             context.start(DetailActivity::class) {
-                putString("userName", (getItem(position) as GithubRepo).owner.name)
-                putString("repoName", (getItem(position) as GithubRepo).name)
+                putString("userName", (getItem(position) as? GithubRepo)?.owner?.name)
+                putString("repoName", (getItem(position) as? GithubRepo)?.name)
                 putBoolean("isSaveClickHistory", isSaveClickHistory)
             }
         }
