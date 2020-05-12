@@ -10,7 +10,7 @@ import com.taeiim.gittoy.data.source.local.model.SearchRepoHistory
 @Dao
 interface SearchRepoHistoryDao {
 
-    @Query("SELECT repo FROM SEARCH_REPO_HISTORY ORDER BY id DESC LIMIT 100")
+    @Query("SELECT * FROM SEARCH_REPO_HISTORY ORDER BY id DESC LIMIT 100")
     fun getRepoHistoryList(): List<GithubRepo>
 
     @Insert

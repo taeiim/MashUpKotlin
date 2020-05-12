@@ -74,7 +74,7 @@
                 android:id="@+id/repoNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{repo.name}"
+                android:text="@{repo.repoName}"
                 android:textColor="@color/textBlack"
                 android:textSize="18sp"
                 android:textStyle="bold"
