@@ -32,7 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.historyRepoRv.adapter = repoAdapter
 
         vm.setObserves()
-        updateHistoryItems()
     }
 
     private fun MainViewModel.setObserves() {
@@ -62,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
-        vm.getRepoHistory()
+        updateHistoryItems()
     }
 
     companion object {
