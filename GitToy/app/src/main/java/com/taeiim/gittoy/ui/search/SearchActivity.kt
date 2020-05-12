@@ -10,6 +10,7 @@ import com.taeiim.gittoy.base.BaseActivity
 import com.taeiim.gittoy.databinding.ActivitySearchBinding
 import com.taeiim.gittoy.databinding.ItemRepoBinding
 import com.taeiim.gittoy.ui.RepoRecyclerAdapter
+import com.taeiim.gittoy.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
@@ -17,7 +18,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     private val vm: SearchViewModel by viewModel()
     private lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
 
-    private val searchWord by lazy { intent?.getStringExtra("searchWord") ?: "" }
+    private val searchWord by lazy { intent?.getStringExtra(MainActivity.KEY_SEARCH_WORD) ?: "" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

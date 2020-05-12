@@ -55,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun goSearchActivity() {
         start(SearchActivity::class) {
-            putString("searchWord", vm.query.value)
+            putString(KEY_SEARCH_WORD, vm.query.value)
         }
         binding.searchEditTv.text.clear()
     }
@@ -63,6 +63,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onResume() {
         super.onResume()
         vm.getRepoHistory()
+    }
+
+    companion object {
+        const val KEY_SEARCH_WORD = "searchWord"
     }
 
 }

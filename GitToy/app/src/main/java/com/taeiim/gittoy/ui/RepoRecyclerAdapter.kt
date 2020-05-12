@@ -21,11 +21,16 @@ class RepoRecyclerAdapter<ITEM : Any, B : ViewDataBinding>(
 
         holder.itemView.setOnClickListener {
             context.start(DetailActivity::class) {
-                putString("userName", (getItem(position) as? GithubRepo)?.owner?.name)
-                putString("repoName", (getItem(position) as? GithubRepo)?.name)
-                putBoolean("isSaveClickHistory", isSaveClickHistory)
+                putString(KEY_USER_NAME, (getItem(position) as? GithubRepo)?.owner?.ownerName)
+                putString(KEY_REPO_NAME, (getItem(position) as? GithubRepo)?.repoName)
+                putBoolean(DetailActivity.KEY_IS_SAVE_CLICK_HISTORY, isSaveClickHistory)
             }
         }
+    }
+
+    companion object {
+        const val KEY_USER_NAME = "userName"
+        const val KEY_REPO_NAME = "repoName"
     }
 
 }
