@@ -6,6 +6,7 @@ import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.base.BaseViewModel
 import com.taeiim.gittoy.common.Event
 import com.taeiim.gittoy.data.GithubRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class MainViewModel(private val githubRepository: GithubRepository) : BaseViewModel() {
 
@@ -29,7 +30,11 @@ class MainViewModel(private val githubRepository: GithubRepository) : BaseViewMo
     }
 
     fun getRepoHistory() {
-        _repoHistoryList.value = githubRepository.getRepoHistoryList()
+        githubRepository.getRepoHistoryList()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _repoHistoryList.value = it
+            }, {}).addDisposable()
     }
 
 }

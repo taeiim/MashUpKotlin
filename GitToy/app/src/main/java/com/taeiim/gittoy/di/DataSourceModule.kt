@@ -15,7 +15,7 @@ val dataSourceModule = module {
         Room.databaseBuilder(
             androidApplication(),
             SearchRepoHistoryDatabase::class.java, SearchRepoHistoryDatabase.DB_NAME
-        ).allowMainThreadQueries().build()
+        ).build()
     }
     single { get<SearchRepoHistoryDatabase>().searchHistoryDao() }
     single<GithubDataSource.Local> { GithubLocalDataSourceImpl(get()) }

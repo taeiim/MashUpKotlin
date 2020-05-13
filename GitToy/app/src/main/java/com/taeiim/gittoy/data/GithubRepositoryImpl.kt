@@ -4,6 +4,8 @@ import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.api.model.RepoSearchResponse
 import com.taeiim.gittoy.data.source.GithubDataSource
+import io.reactivex.Completable
+import io.reactivex.Single
 
 class GithubRepositoryImpl(
     private val githubRemoteDataSource: GithubDataSource.Remote,
@@ -29,17 +31,13 @@ class GithubRepositoryImpl(
         fail: (t: Throwable) -> Unit
     ) = githubRemoteDataSource.getUserInfo(userName, success, fail)
 
-    override fun getRepoHistoryList(): List<GithubRepo> {
-        Thread(Runnable { githubLocalDataSource.getRepoHistoryList() }).start()
-        return githubLocalDataSource.getRepoHistoryList()
-    }
+    override fun getRepoHistoryList(): Single<List<GithubRepo>> =
+        githubLocalDataSource.getRepoHistoryList()
 
-    override fun saveClickRepo(repo: GithubRepo) {
+    override fun saveClickRepo(repo: GithubRepo): Completable =
         githubLocalDataSource.saveClickRepo(repo)
-    }
 
-    override fun deleteRepoHistory(repo: GithubRepo) {
+    override fun deleteRepoHistory(repo: GithubRepo): Completable =
         githubLocalDataSource.deleteRepoHistory(repo)
-    }
 
 }

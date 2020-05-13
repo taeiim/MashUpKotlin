@@ -33,6 +33,11 @@ class DetailViewModel(private val githubRepository: GithubRepository) : BaseView
     }
 
     fun saveRepoHistory() {
-        repo.value?.let { githubRepository.saveClickRepo(it) }
+        repo.value?.let {
+            githubRepository.saveClickRepo(it)
+                .subscribe()
+                .addDisposable()
+        }
     }
+
 }

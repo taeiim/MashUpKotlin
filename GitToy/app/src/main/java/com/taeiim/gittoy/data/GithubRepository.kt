@@ -3,6 +3,8 @@ package com.taeiim.gittoy.data
 import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.api.model.RepoSearchResponse
+import io.reactivex.Completable
+import io.reactivex.Single
 
 interface GithubRepository {
 
@@ -25,10 +27,10 @@ interface GithubRepository {
         fail: (t: Throwable) -> Unit
     )
 
-    fun getRepoHistoryList(): List<GithubRepo>
+    fun getRepoHistoryList(): Single<List<GithubRepo>>
 
-    fun saveClickRepo(repo: GithubRepo)
+    fun saveClickRepo(repo: GithubRepo): Completable
 
-    fun deleteRepoHistory(repo: GithubRepo)
+    fun deleteRepoHistory(repo: GithubRepo): Completable
 
 }

@@ -33,6 +33,11 @@ buildscript {
 
         // koin
         koin_version = '2.1.5'
+
+        // rx
+        rxjava_version = '2.2.17'
+        rxandroid_version = '2.1.1'
+        rxkotlin_version = '2.4.0'
     }
 
     repositories {
