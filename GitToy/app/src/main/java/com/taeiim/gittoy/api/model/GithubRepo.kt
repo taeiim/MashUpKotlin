@@ -38,7 +38,7 @@ data class GithubRepo(
     var isPrivate: Boolean = false,
 
     @SerializedName("language")
-    var language: String = "",
+    var language: String? = "",
 
     @SerializedName("stargazers_count")
     var starCnt: Int = 0,

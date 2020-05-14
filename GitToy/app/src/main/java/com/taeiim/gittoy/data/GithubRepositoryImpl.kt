@@ -2,7 +2,6 @@ package com.taeiim.gittoy.data
 
 import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.api.model.GithubUser
-import com.taeiim.gittoy.api.model.RepoSearchResponse
 import com.taeiim.gittoy.data.source.GithubDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -12,24 +11,14 @@ class GithubRepositoryImpl(
     private val githubLocalDataSource: GithubDataSource.Local
 ) : GithubRepository {
 
-    override fun searchRepository(
-        query: String,
-        success: (results: RepoSearchResponse) -> Unit,
-        fail: (t: Throwable) -> Unit
-    ) = githubRemoteDataSource.searchRepository(query, success, fail)
+    override fun searchRepository(query: String): Single<List<GithubRepo>> =
+        githubRemoteDataSource.searchRepository(query)
 
-    override fun getRepoInfo(
-        userName: String,
-        repoName: String,
-        success: (repo: GithubRepo) -> Unit,
-        fail: (t: Throwable) -> Unit
-    ) = githubRemoteDataSource.getRepoInfo(userName, repoName, success, fail)
+    override fun getRepoInfo(userName: String, repoName: String): Single<GithubRepo> =
+        githubRemoteDataSource.getRepoInfo(userName, repoName)
 
-    override fun getUserInfo(
-        userName: String,
-        success: (user: GithubUser) -> Unit,
-        fail: (t: Throwable) -> Unit
-    ) = githubRemoteDataSource.getUserInfo(userName, success, fail)
+    override fun getUserInfo(userName: String): Single<GithubUser> =
+        githubRemoteDataSource.getUserInfo(userName)
 
     override fun getRepoHistoryList(): Single<List<GithubRepo>> =
         githubLocalDataSource.getRepoHistoryList()

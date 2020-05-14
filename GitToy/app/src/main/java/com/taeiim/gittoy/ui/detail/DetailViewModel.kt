@@ -6,6 +6,7 @@ import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.base.BaseViewModel
 import com.taeiim.gittoy.data.GithubRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class DetailViewModel(private val githubRepository: GithubRepository) : BaseViewModel() {
 
@@ -19,17 +20,19 @@ class DetailViewModel(private val githubRepository: GithubRepository) : BaseView
 
 
     fun loadRepoData(userName: String, repoName: String) {
-        githubRepository.getRepoInfo(userName, repoName, success = {
-            _repo.value = it
-        }, fail = {
-        })
+        githubRepository.getRepoInfo(userName, repoName)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _repo.value = it
+            }, {}).addDisposable()
     }
 
     fun loadUserData(userName: String) {
-        githubRepository.getUserInfo(userName, success = {
-            _user.value = it
-        }, fail = {
-        })
+        githubRepository.getUserInfo(userName)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _user.value = it
+            }, {}).addDisposable()
     }
 
     fun saveRepoHistory() {

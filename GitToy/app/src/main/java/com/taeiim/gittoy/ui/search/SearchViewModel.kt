@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.base.BaseViewModel
 import com.taeiim.gittoy.data.GithubRepository
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class SearchViewModel(private val githubRepository: GithubRepository) : BaseViewModel() {
 
@@ -17,11 +18,13 @@ class SearchViewModel(private val githubRepository: GithubRepository) : BaseView
         get() = _errorFailSearch
 
     fun searchRepo(query: String) {
-        githubRepository.searchRepository(query, success = {
-            _searchResultList.value = it.items
-        }, fail = {
-            _errorFailSearch.value = Throwable()
-        })
+        githubRepository.searchRepository(query)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _searchResultList.value = it
+            }, {
+                _errorFailSearch.value = Throwable()
+            }).addDisposable()
     }
 
 }
