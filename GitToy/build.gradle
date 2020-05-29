@@ -32,8 +32,8 @@ buildscript {
         // lifeCycle (viewModel)
         lifecycle_version = '2.1.0'
 
-        // koin
-        koin_version = '2.1.5'
+        // dagger
+        dagger_version = '2.27'
 
         // rx
         rxjava_version = '2.2.17'
