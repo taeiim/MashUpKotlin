@@ -7,8 +7,10 @@ import com.taeiim.gittoy.base.BaseViewModel
 import com.taeiim.gittoy.common.Event
 import com.taeiim.gittoy.data.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import javax.inject.Inject
 
-class MainViewModel(private val githubRepository: GithubRepository) : BaseViewModel() {
+class MainViewModel @Inject
+constructor(private val githubRepository: GithubRepository) : BaseViewModel() {
 
     private val _repoHistoryList = MutableLiveData<List<GithubRepo>>()
     val repoHistoryList: LiveData<List<GithubRepo>>

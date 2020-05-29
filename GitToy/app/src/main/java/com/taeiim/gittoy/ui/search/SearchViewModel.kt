@@ -6,8 +6,10 @@ import com.taeiim.gittoy.api.model.GithubRepo
 import com.taeiim.gittoy.base.BaseViewModel
 import com.taeiim.gittoy.data.GithubRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
+import javax.inject.Inject
 
-class SearchViewModel(private val githubRepository: GithubRepository) : BaseViewModel() {
+class SearchViewModel @Inject
+constructor(private val githubRepository: GithubRepository) : BaseViewModel() {
 
     private val _searchResultList = MutableLiveData<List<GithubRepo>>()
     val searchResultList: LiveData<List<GithubRepo>>

@@ -6,14 +6,23 @@ import com.taeiim.gittoy.R
 import com.taeiim.gittoy.base.BaseActivity
 import com.taeiim.gittoy.databinding.ActivityDetailBinding
 import com.taeiim.gittoy.ui.RepoRecyclerAdapter
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.taeiim.gittoy.ui.ViewModelFactory
+import javax.inject.Inject
 
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
 
-    private val vm: DetailViewModel by viewModel()
+    @Inject
+    lateinit var vm: DetailViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val userName by lazy { intent?.getStringExtra(RepoRecyclerAdapter.KEY_USER_NAME) ?: "" }
     private val repoName by lazy { intent?.getStringExtra(RepoRecyclerAdapter.KEY_REPO_NAME) ?: "" }
+
+    override fun initializeViewModel() {
+        vm = viewModelFactory.create(DetailViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

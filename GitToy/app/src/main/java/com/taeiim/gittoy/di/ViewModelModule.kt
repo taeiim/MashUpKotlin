@@ -1,15 +1,29 @@
 package com.taeiim.gittoy.di
 
+import androidx.lifecycle.ViewModel
 import com.taeiim.gittoy.ui.detail.DetailViewModel
 import com.taeiim.gittoy.ui.main.MainViewModel
 import com.taeiim.gittoy.ui.search.SearchViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
 
-val viewModelModule = module {
+@Suppress("unused")
+@Module
+abstract class ViewModelModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
-    viewModel { MainViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
-    viewModel { DetailViewModel(get()) }
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel::class)
+    abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel
 
 }

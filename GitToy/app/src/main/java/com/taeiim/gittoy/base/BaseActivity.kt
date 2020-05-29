@@ -12,10 +12,15 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     protected lateinit var binding: B
 
+    protected abstract fun initializeViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId)
         binding.lifecycleOwner = this
+        initializeViewModel()
+
     }
+
 
 }

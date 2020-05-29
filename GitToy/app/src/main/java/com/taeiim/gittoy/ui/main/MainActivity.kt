@@ -12,13 +12,23 @@ import com.taeiim.gittoy.databinding.ActivityMainBinding
 import com.taeiim.gittoy.databinding.ItemRepoBinding
 import com.taeiim.gittoy.ext.start
 import com.taeiim.gittoy.ui.RepoRecyclerAdapter
+import com.taeiim.gittoy.ui.ViewModelFactory
 import com.taeiim.gittoy.ui.search.SearchActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val vm: MainViewModel by viewModel()
+    @Inject
+    lateinit var vm: MainViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var repoAdapter: RepoRecyclerAdapter<GithubRepo, ItemRepoBinding>
+
+    override fun initializeViewModel() {
+        vm = viewModelFactory.create(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,5 +77,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     companion object {
         const val KEY_SEARCH_WORD = "searchWord"
     }
+
 
 }
