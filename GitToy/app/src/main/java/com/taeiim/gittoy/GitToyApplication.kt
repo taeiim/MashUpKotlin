@@ -2,17 +2,26 @@ package com.taeiim.gittoy
 
 import android.app.Application
 import com.facebook.stetho.Stetho
-import com.taeiim.gittoy.di.dataSourceModule
-import com.taeiim.gittoy.di.networkModule
-import com.taeiim.gittoy.di.viewModelModule
-import com.taeiim.gittoy.ext.setupKoin
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class GitToyApplication : Application() {
+class GitToyApplication : Application(), HasAndroidInjector {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     override fun onCreate() {
         super.onCreate()
-        setupKoin(this, viewModelModule, dataSourceModule, networkModule)
+        initDagger()
         Stetho.initializeWithDefaults(this)
+    }
+
+    private fun initDagger() {
+        DaggerAppComponent.builder().build().inject(this)
     }
 
 }
