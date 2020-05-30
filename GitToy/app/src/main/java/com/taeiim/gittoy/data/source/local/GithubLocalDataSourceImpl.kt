@@ -6,10 +6,10 @@ import com.taeiim.gittoy.data.source.local.model.SearchRepoHistory
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class GithubLocalDataSourceImpl(
-    private val historyDao: SearchRepoHistoryDao
-) : GithubDataSource.Local {
+class GithubLocalDataSourceImpl @Inject
+constructor(private val historyDao: SearchRepoHistoryDao) : GithubDataSource.Local {
 
     override fun getRepoHistoryList(): Single<List<GithubRepo>> =
         historyDao.getRepoHistoryList()

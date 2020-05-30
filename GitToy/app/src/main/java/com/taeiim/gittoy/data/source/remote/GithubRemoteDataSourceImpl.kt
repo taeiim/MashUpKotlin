@@ -6,8 +6,10 @@ import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.data.source.GithubDataSource
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class GithubRemoteDataSourceImpl(private val githubApi: GithubApi) : GithubDataSource.Remote {
+class GithubRemoteDataSourceImpl @Inject
+constructor(private val githubApi: GithubApi) : GithubDataSource.Remote {
 
     override fun searchRepository(query: String): Single<List<GithubRepo>> =
         githubApi.searchRepository(query)

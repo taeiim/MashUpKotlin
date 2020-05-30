@@ -1,24 +1,45 @@
 package com.taeiim.gittoy.di
 
+import android.app.Application
+import androidx.annotation.NonNull
 import androidx.room.Room
-import com.taeiim.gittoy.data.GithubRepository
-import com.taeiim.gittoy.data.GithubRepositoryImpl
+import com.taeiim.gittoy.api.GithubApi
 import com.taeiim.gittoy.data.source.GithubDataSource
 import com.taeiim.gittoy.data.source.local.GithubLocalDataSourceImpl
+import com.taeiim.gittoy.data.source.local.SearchRepoHistoryDao
 import com.taeiim.gittoy.data.source.local.SearchRepoHistoryDatabase
 import com.taeiim.gittoy.data.source.remote.GithubRemoteDataSourceImpl
-import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
-val dataSourceModule = module {
-    single {
-        Room.databaseBuilder(
-            androidApplication(),
+@Module
+class DataSourceModule {
+    @Provides
+    @Singleton
+    fun provideDatabase(@NonNull application: Application): SearchRepoHistoryDatabase {
+        return Room.databaseBuilder(
+            application,
             SearchRepoHistoryDatabase::class.java, SearchRepoHistoryDatabase.DB_NAME
         ).build()
     }
-    single { get<SearchRepoHistoryDatabase>().searchHistoryDao() }
-    single<GithubDataSource.Local> { GithubLocalDataSourceImpl(get()) }
-    single<GithubDataSource.Remote> { GithubRemoteDataSourceImpl(get()) }
-    single<GithubRepository> { GithubRepositoryImpl(get(), get()) }
+
+    @Provides
+    @Singleton
+    fun provideSearchHistoryDao(@NonNull database: SearchRepoHistoryDatabase): SearchRepoHistoryDao {
+        return database.searchHistoryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGithubLocalDataSource(@NonNull historyDao: SearchRepoHistoryDao): GithubDataSource.Local {
+        return GithubLocalDataSourceImpl(historyDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGithubRemoteDataSource(@NonNull githubApi: GithubApi): GithubDataSource.Remote {
+        return GithubRemoteDataSourceImpl(githubApi)
+    }
+
 }
