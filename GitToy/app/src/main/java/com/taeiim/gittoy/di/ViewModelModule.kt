@@ -1,6 +1,7 @@
 package com.taeiim.gittoy.di
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.taeiim.gittoy.ui.detail.DetailViewModel
 import com.taeiim.gittoy.ui.main.MainViewModel
 import com.taeiim.gittoy.ui.search.SearchViewModel
@@ -25,5 +26,8 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel
+
+    @Binds
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
 }
