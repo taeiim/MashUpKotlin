@@ -5,8 +5,11 @@ import com.taeiim.gittoy.api.model.GithubUser
 import com.taeiim.gittoy.data.source.GithubDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class GithubRepositoryImpl(
+@Singleton
+class GithubRepositoryImpl @Inject constructor(
     private val githubRemoteDataSource: GithubDataSource.Remote,
     private val githubLocalDataSource: GithubDataSource.Local
 ) : GithubRepository {
