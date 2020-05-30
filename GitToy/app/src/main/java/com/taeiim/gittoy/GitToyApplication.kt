@@ -1,27 +1,19 @@
 package com.taeiim.gittoy
 
-import android.app.Application
 import com.facebook.stetho.Stetho
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
+import com.taeiim.gittoy.di.DaggerAppComponent
+import dagger.android.DaggerApplication
 import dagger.android.HasAndroidInjector
-import javax.inject.Inject
 
-class GitToyApplication : Application(), HasAndroidInjector {
+class GitToyApplication : DaggerApplication(), HasAndroidInjector {
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+    private val appComponent = DaggerAppComponent.factory().create(this)
 
     override fun onCreate() {
         super.onCreate()
-        initDagger()
         Stetho.initializeWithDefaults(this)
     }
 
-    private fun initDagger() {
-        DaggerAppComponent.builder().build().inject(this)
-    }
+    override fun applicationInjector() = appComponent
 
 }
