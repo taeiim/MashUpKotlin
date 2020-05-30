@@ -1,19 +1,22 @@
 package com.taeiim.gittoy.di
 
+import androidx.annotation.NonNull
 import com.taeiim.gittoy.BuildConfig
 import com.taeiim.gittoy.api.GithubApi
+import dagger.Module
+import dagger.Provides
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-val networkModule = module {
+@Module
+class NetworkModule {
 
-    single<Interceptor> {
+    private val logger: HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor.Level.BODY
@@ -21,27 +24,38 @@ val networkModule = module {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
-    }
 
-    single {
-        OkHttpClient.Builder()
-            .addInterceptor(get<Interceptor>())
+    @Provides
+    @Singleton
+    fun provideHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(logger)
             .build()
     }
 
-    single { RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()) }
+    @Provides
+    @Singleton
+    fun provideRxJava2CallAdpater(): RxJava2CallAdapterFactory =
+        RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
 
-    single { GsonConverterFactory.create() }
-
-    single<Retrofit> {
-        Retrofit.Builder()
+    @Provides
+    @Singleton
+    fun provideRetrofit(
+        @NonNull okHttpClient: OkHttpClient,
+        @NonNull rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://api.github.com/")
-            .client(get<OkHttpClient>())
-            .addCallAdapterFactory(get<RxJava2CallAdapterFactory>())
-            .addConverterFactory(get<GsonConverterFactory>())
+            .client(okHttpClient)
+            .addCallAdapterFactory(rxJava2CallAdapterFactory)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    single { get<Retrofit>().create(GithubApi::class.java) }
+    @Provides
+    @Singleton
+    fun provideGithubApi(@NonNull retrofit: Retrofit): GithubApi {
+        return retrofit.create(GithubApi::class.java)
+    }
 
 }
